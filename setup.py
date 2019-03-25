@@ -43,7 +43,8 @@ ext_modules = [
         ],
         language='c++',
         extra_compile_args=[
-            '-O2'
+            '-O3',
+            '-march=native'
         ]
     ),
 ]
@@ -108,7 +109,7 @@ setup(
     version=__version__,
     author='Domokos Kelen',
     author_email='kdomokos@gmail.com',
-    # url='https://github.com/pybind/python_example',
+    url='https://github.com/proto-n/fjaccard-py',
     description='A specialized tool',
     long_description='',
     ext_modules=ext_modules,
