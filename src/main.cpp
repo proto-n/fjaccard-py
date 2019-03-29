@@ -32,6 +32,9 @@ protected:
 			i2v.begin(), i2v.end(),
 			std::back_inserter(intersection)
 		);
+		if(i1v.size() + i2v.size() == 0){
+			return 0;
+		}
 		return double(intersection.size()) / (i1v.size() + i2v.size() - intersection.size());
 	}
 	void build_userlists_(
@@ -67,12 +70,15 @@ public:
 		if(i1 == i2){
 			return 1;
 		}
+		if(i1 >= item_users_.size() || i2 >= item_users_.size()){
+			return 0;
+		}
 		bool need_cache = true;
 		vector<long> *i1v, *i2v;
 		if(cache_limit_ != 0){
 			i1v = &item_users_[i1];
 			i2v = &item_users_[i2];
-			need_cache = i1v->size() + i2v->size() >= cache_limit_;
+			need_cache = i1v->size() >= cache_limit_ && i2v->size() >= cache_limit_;
 		}
 		if(need_cache){
 			auto cache_hit = similarity_cache_.find(make_tuple(min(i1, i2), max(i1, i2)));
